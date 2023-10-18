@@ -30,3 +30,14 @@
   text-decoration: none;
   color: #3d3d3d;
 }
+
+.login-form{
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #ddd;
+  margin: 1rem 2rem;
+  padding: 1rem;
+}

@@ -19,7 +19,8 @@ export const Navbar = () => {
         </li>
         <li>
           {/* <a href="/cart">cart</a> */}
-          <NavLink to="/cart">Cart</NavLink>
+          {/* <NavLink to="/cart">Cart</NavLink> */}
+          <NavLink to="/login">Login</NavLink>
         </li>
       </ul>
     </nav>
