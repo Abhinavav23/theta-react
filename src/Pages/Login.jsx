@@ -1,43 +1,43 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const userList = [
-  {
-    id: "1001",
-    name: "Akash",
-    role: "student",
-    email: "Akash@mail.com",
-    pwd: "123456",
-  },
-  {
-    id: "1002",
-    name: "Naveen",
-    role: "student",
-    email: "Naveen@mail.com",
-    pwd: "123456",
-  },
-  {
-    id: "1003",
-    name: "Faraz",
-    role: "student",
-    email: "Faraz@mail.com",
-    pwd: "123456",
-  },
-  {
-    id: "1004",
-    name: "Prashant",
-    role: "student",
-    email: "Prashant@mail.com",
-    pwd: "123456",
-  },
-  {
-    id: "1008",
-    name: "Suraj",
-    role: "student",
-    email: "Suraj@mail.com",
-    pwd: "123456",
-  },
-];
+// const userList = [
+//   {
+//     id: "1001",
+//     name: "Akash",
+//     role: "student",
+//     email: "Akash@mail.com",
+//     pwd: "123456",
+//   },
+//   {
+//     id: "1002",
+//     name: "Naveen",
+//     role: "student",
+//     email: "Naveen@mail.com",
+//     pwd: "123456",
+//   },
+//   {
+//     id: "1003",
+//     name: "Faraz",
+//     role: "student",
+//     email: "Faraz@mail.com",
+//     pwd: "123456",
+//   },
+//   {
+//     id: "1004",
+//     name: "Prashant",
+//     role: "student",
+//     email: "Prashant@mail.com",
+//     pwd: "123456",
+//   },
+//   {
+//     id: "1008",
+//     name: "Suraj",
+//     role: "student",
+//     email: "Suraj@mail.com",
+//     pwd: "123456",
+//   },
+// ];
 
 export const Login = () => {
   const [userDetails, setUserDetails] = useState({
@@ -45,7 +45,7 @@ export const Login = () => {
     password: "",
   });
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     const { value, name } = e.target;
@@ -54,22 +54,26 @@ export const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const userList = JSON.parse(localStorage.getItem("userList"));
+    if (!userList) {
+      return;
+    }
     const user = userList.find((usr) => usr.email === userDetails.email);
-    if(user){
-        if(user.pwd === userDetails.password){
-            // navigate the user to home
-            console.log('successful');
-            navigate("/home");
-        }else{
-            console.log("password is incorrect");
-        }
-    }else{
-        console.log("no user found");
+    if (user) {
+      if (user.password === userDetails.password) {
+        // navigate the user to home
+        console.log("successful");
+        navigate("/home");
+      } else {
+        console.log("password is incorrect");
+      }
+    } else {
+      console.log("no user found");
     }
   };
 
   return (
-    <form action="" className="login-form" onSubmit={handleSubmit}>
+    <form action="" className="form-container" onSubmit={handleSubmit}>
       <div>
         <label htmlFor="email">Email: </label>
         <input
@@ -93,6 +97,9 @@ export const Login = () => {
       </div>
 
       <input type="submit" value="Login" />
+
+      <p>Not a user already?</p>
+      <button onClick={() => navigate("/signup")}>create account</button>
     </form>
   );
 };

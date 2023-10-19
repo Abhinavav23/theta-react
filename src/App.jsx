@@ -9,6 +9,7 @@ import { Navbar } from "./Navbar";
 import { DynamicProfile } from "./Pages/DynamicProfile";
 import { Product } from "./Pages/Product";
 import { Login } from "./Pages/Login";
+import { SignUp } from "./Pages/SignUp";
 
 function App() {
   const [showHome, setShowHome] = useState(false);
@@ -48,6 +49,7 @@ function App() {
         <Route path="/profile/:userId/:localAddress" element={<DynamicProfile />} />
         <Route path="/product" element={<Product/>}/>
         <Route path="/login" element={<Login/>}/>
+        <Route path="/signup" element={<SignUp/>}/>
         <Route
           path="*"
           element={
