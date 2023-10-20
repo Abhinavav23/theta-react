@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../App";
 
 // const userList = [
 //   {
@@ -44,8 +45,9 @@ export const Login = () => {
     email: "",
     password: "",
   });
-
+  const [error, setError] = useState("");
   const navigate = useNavigate();
+  const {setIsLoggedIn} = useContext(AuthContext);
 
   const handleInputChange = (e) => {
     const { value, name } = e.target;
@@ -64,11 +66,17 @@ export const Login = () => {
         // navigate the user to home
         console.log("successful");
         navigate("/home");
+        // save the user
+        sessionStorage.setItem("loggedInUser", JSON.stringify(user));
+        setIsLoggedIn(true)
       } else {
         console.log("password is incorrect");
+        setError("password is incorrect");
       }
     } else {
       console.log("no user found");
+      // err message
+      setError("no user found");
     }
   };
 
@@ -100,6 +108,8 @@ export const Login = () => {
 
       <p>Not a user already?</p>
       <button onClick={() => navigate("/signup")}>create account</button>
+
+      {error && <p style={{ color: "red" }}>Error: {error}</p>}
     </form>
   );
 };
@@ -112,3 +122,11 @@ let address = {
 
 let key = "pin";
 console.log(address[key]);
+
+
+
+
+
+// /Users/abhinav/Desktop/Theta/routing-demo/src/Pages/Login.jsx
+
+// src/Pages/Login.jsx
