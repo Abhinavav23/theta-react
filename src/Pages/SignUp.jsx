@@ -16,27 +16,37 @@ export const SignUp = () => {
     setUserDetails({ ...userDetails, [name]: value });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-   const data = {...userDetails, id: Math.floor(Math.random()*100000)}
-   console.log("data", data);
-    // json---> JS ---> JSON.parse()
-    // JS ---> json --> JSON.stringify()
-    // step 1: check if userList is present
-    const userListJSON = localStorage.getItem("userList");
-    const userList = JSON.parse(userListJSON);
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //  const data = {...userDetails, id: Math.floor(Math.random()*100000)}
+  //  console.log("data", data);
+  //   // json---> JS ---> JSON.parse()
+  //   // JS ---> json --> JSON.stringify()
+  //   // step 1: check if userList is present
+  //   const userListJSON = localStorage.getItem("userList");
+  //   const userList = JSON.parse(userListJSON);
     
-    if (userList) {
-      // push the data
-      userList.push(data);
-      localStorage.setItem("userList", JSON.stringify(userList));
-    } else {
-      // create a data
-      const newUserList = [data]
-      localStorage.setItem("userList", JSON.stringify(newUserList));
-    }
-    navigate("/login");
-  };
+  //   if (userList) {
+  //     // push the data
+  //     userList.push(data);
+  //     localStorage.setItem("userList", JSON.stringify(userList));
+  //   } else {
+  //     // create a data
+  //     const newUserList = [data]
+  //     localStorage.setItem("userList", JSON.stringify(newUserList));
+  //   }
+  //   navigate("/login");
+  // };
+
+  // create a user using API
+  const handleSubmit = () => {
+    // get a phone ---> GET
+    // add a phone ---> POST
+    // update a phone ---> UPDATE
+    // delete a phone ---> DELETE
+    
+    fetch("https://academics.newtonschool.co/api/v1/bookingportals/signup")
+  }
 
   return (
     <form action="" className="form-container" onSubmit={handleSubmit}>

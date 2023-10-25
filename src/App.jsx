@@ -16,7 +16,15 @@ export const AuthContext = createContext();
 
 function App() {
   const [showHome, setShowHome] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // check the session storage if user is present then set to true otherwise false
+  let loggedInstate;
+  const user = sessionStorage.getItem('loggedInUser')
+  if(user){
+    loggedInstate = true
+  }else{
+    loggedInstate = false
+  }
+  const [isLoggedIn, setIsLoggedIn] = useState(loggedInstate);
 
   const toggle = () => {
     setShowHome(!showHome);
@@ -53,7 +61,7 @@ function App() {
             path="/profile"
             element={
               <>
-                <AuthNavigator navigateTo="home">
+                <AuthNavigator navigateTo="login">
                   <Profile />
                   <Footer/>
                 </AuthNavigator>

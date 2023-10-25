@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../App";
 
 // const userList = [
@@ -47,7 +47,10 @@ export const Login = () => {
   });
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  const {setIsLoggedIn} = useContext(AuthContext);
+  const { setIsLoggedIn } = useContext(AuthContext);
+
+  const location = useLocation();
+  console.log("location inside login", location);
 
   const handleInputChange = (e) => {
     const { value, name } = e.target;
@@ -63,12 +66,17 @@ export const Login = () => {
     const user = userList.find((usr) => usr.email === userDetails.email);
     if (user) {
       if (user.password === userDetails.password) {
-        // navigate the user to home
-        console.log("successful");
-        navigate("/home");
         // save the user
         sessionStorage.setItem("loggedInUser", JSON.stringify(user));
-        setIsLoggedIn(true)
+        setIsLoggedIn(true);
+
+        // navigate the user to home
+        // navigate("/home"); // this is not correct behaviour
+        if (location.state) {
+          navigate(location.state.myPreviousPath);
+        } else {
+          navigate("/home");
+        }
       } else {
         console.log("password is incorrect");
         setError("password is incorrect");
@@ -122,10 +130,6 @@ let address = {
 
 let key = "pin";
 console.log(address[key]);
-
-
-
-
 
 // /Users/abhinav/Desktop/Theta/routing-demo/src/Pages/Login.jsx
 
