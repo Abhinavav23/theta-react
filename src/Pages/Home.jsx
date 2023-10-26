@@ -1,7 +1,11 @@
 import React from 'react'
+import { RefExample } from '../ref/RefExample'
 
 export const Home = () => {
   return (
-    <div>Home</div>
+    <section>
+      <h3>Home</h3>
+      <RefExample/>
+    </section>
   )
 }

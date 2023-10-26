@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 export const SignUp = () => {
   const initialUserData = {
-    fullName: "",
+    name: "",
     email: "",
     role: "",
     password: "",
@@ -39,13 +39,32 @@ export const SignUp = () => {
   // };
 
   // create a user using API
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
     // get a phone ---> GET
     // add a phone ---> POST
     // update a phone ---> UPDATE
     // delete a phone ---> DELETE
-    
-    fetch("https://academics.newtonschool.co/api/v1/bookingportals/signup")
+    e.preventDefault();
+
+    const config = {
+      method: "POST",
+      body: JSON.stringify({...userDetails, appType: "bookingportals"}),
+      headers: {
+        "Content-Type": "application/json",
+        "projectID" : "y3hm1qf3iywm",
+      }
+    }
+    fetch("https://academics.newtonschool.co/api/v1/bookingportals/signup", config)
+    .then((res) => {
+      console.log('response', res)
+      return res.json()
+    })
+    .then((data) => {
+      console.log('data', data);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
   }
 
   return (
@@ -54,10 +73,10 @@ export const SignUp = () => {
         <label htmlFor="fullName">Full Name: </label>
         <input
           type="text"
-          name="fullName"
+          name="name"
           id="fullName"
           onChange={handleInputChange}
-          value={userDetails.fullName.toUpperCase()}
+          value={userDetails.name.toUpperCase()}
         />
       </div>
       <div>

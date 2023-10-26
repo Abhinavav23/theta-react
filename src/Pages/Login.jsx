@@ -57,36 +57,65 @@ export const Login = () => {
     setUserDetails({ ...userDetails, [name]: value });
   };
 
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   const userList = JSON.parse(localStorage.getItem("userList"));
+  //   if (!userList) {
+  //     return;
+  //   }
+  //   const user = userList.find((usr) => usr.email === userDetails.email);
+  //   if (user) {
+  //     if (user.password === userDetails.password) {
+  //       // save the user
+  //       sessionStorage.setItem("loggedInUser", JSON.stringify(user));
+  //       setIsLoggedIn(true);
+
+  //       // navigate the user to home
+  //       // navigate("/home"); // this is not correct behaviour
+  //       if (location.state) {
+  //         navigate(location.state.myPreviousPath);
+  //       } else {
+  //         navigate("/home");
+  //       }
+  //     } else {
+  //       console.log("password is incorrect");
+  //       setError("password is incorrect");
+  //     }
+  //   } else {
+  //     console.log("no user found");
+  //     // err message
+  //     setError("no user found");
+  //   }
+  // };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    const userList = JSON.parse(localStorage.getItem("userList"));
-    if (!userList) {
-      return;
-    }
-    const user = userList.find((usr) => usr.email === userDetails.email);
-    if (user) {
-      if (user.password === userDetails.password) {
-        // save the user
-        sessionStorage.setItem("loggedInUser", JSON.stringify(user));
-        setIsLoggedIn(true);
-
-        // navigate the user to home
-        // navigate("/home"); // this is not correct behaviour
-        if (location.state) {
-          navigate(location.state.myPreviousPath);
-        } else {
-          navigate("/home");
-        }
-      } else {
-        console.log("password is incorrect");
-        setError("password is incorrect");
+    const token = sessionStorage.getItem("userToken")
+    const config = {
+      method: "POST", //PATCH, PUT, GET, DELETE
+      body: JSON.stringify({...userDetails, appType: "bookingportals"}),
+      headers: {
+        "Content-Type": "application/json",
+        "projectID" : "y3hm1qf3iywm",
+        // 'Authorization': `Bearer ${token}`,
       }
-    } else {
-      console.log("no user found");
-      // err message
-      setError("no user found");
     }
-  };
+
+    fetch("https://academics.newtonschool.co/api/v1/bookingportals/login", config)
+    .then((res) => {
+      console.log('response', res)
+      return res.json()
+    })
+    .then((data) => {
+      console.log('data', data);
+      if(data.token){
+        sessionStorage.setItem("userToken", data.token)
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+  }
 
   return (
     <form action="" className="form-container" onSubmit={handleSubmit}>
