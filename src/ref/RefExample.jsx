@@ -9,7 +9,6 @@ export const RefExample = () => {
   //   create a ref
   const emailRef = useRef();
   const feedbackRef = useRef();
-
   //   const handleInputChange = (e) => {
   //     console.log('running handleInputChange');
   //     const { value, name } = e.target;
